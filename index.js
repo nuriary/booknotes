@@ -10,10 +10,11 @@ const port = 3000;
 env.config();
 
 const db = new pg.Client({
-    user: "postgres",
-    host: "127.0.0.1",
-    database: "booknote",
-    password: "303602",
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
