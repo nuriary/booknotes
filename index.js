@@ -14,7 +14,6 @@ const db = new pg.Client({
     host: "127.0.0.1",
     database: "booknote",
     password: "303602",
-    port: 5432
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
