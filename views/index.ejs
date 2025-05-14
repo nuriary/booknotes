@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book notes</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="header">
+        <a href="/"><img src="/assets/icons/logo.png"  alt="logo" width="180px" id="logo"></a>
+        <hr>
+        <div id="top">
+            <h1 id="title">읽은 책을 기록하세요.</h1>
+            <div class="search">
+                <form action="/new" method="post">
+                    <input type="text" name="name">
+                    <button type="submit">
+                        <img src="/assets/icons/search1.png" id="search-img" alt="search-icon">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<!-- 책 메인 창, 모달 버튼 -->
+<div id="main">
+    <div id="book">
+        <% reviewItems.forEach((item) => { %>
+          <img src= "<%= item.cover %>" class="bookimg" data-id="<%= item.id %>" data-action="" onclick="sendId(this)">
+            <% }); %>
+    </div>
+</div>
+
+ <!-- 책 소개 창, 모달 창 -->
+  <div id="modal" class="context dialog"> 
+    <div class="book-modal">
+        <div class="book-main">
+            <h3 id="book-title"></h3>
+            <p id="book-author"></p>
+            <hr>
+            <div class="book-image">
+              <img id="book-cover" src="">
+              <p id="book-description"></p>
+            </div>
+            <p id="book-review"></p>
+            <hr>
+            <span class="s" id="book-publisher"></span>
+            <span class="s" id="book-pubdate"></span>
+            <span class="s" id="book-isbn"></span>
+        </div>
+            <form action="/edit" method="post">
+                <button class="edit bookbtn" type="submit">수정</button>
+                <input type="hidden" name="text" id="review-id">
+                <input type="hidden" name="id" id="edit-id" data-action="edit">
+            </form>
+            <form action="/delete" method="post">
+                <button class="delete bookbtn" type="submit" name="id" id="delete-id" data-action="delete">삭제</button>
+            </form>
+        <button class="modal-close">
+            <img src="/assets/icons/close.png" id="close-img" alt="close-icon">
+        </button>
+    </div>
+    <div id="modal-background"></div>
+    </div>
+
+<!-- 책 검색했을 때 나오는 화면 -->
+    <div class="search-container" id="search">
+      
+        <form action="/add" method="post">
+            <% searchItems.forEach((item) => { %>
+        
+        <div class="search-item">
+            <div class="search-image">
+              <img src= <%= item.cover %> width="130px" height="200px">
+            </div>
+
+            <div class="search-text">
+            <h3><%= item.title %></h3>
+              <p><%= item.author %></p>
+              <p class="d"><%= item.description %></p>
+              <span class="s"><%= item.publisher %></span>
+              <span class="s"><%= item.pubDate %></span>
+              <span class="s"><%= item.isbn13 %></span>
+            </div>
+                
+            <div class="search-button">
+              <button id="search-button2" type="submit" name="item" value='["<%= item.title %>", "<%= item.author %>", "<%= item.pubDate %>", "<%= item.description %>", "<%= item.isbn13 %>", "<%= item.publisher %>", "<%= item.cover %>"]'>작성하기</button>
+            </div>
+        </div>
+        <hr>
+            <% }); %>
+      </form>
+    </div>
+
+
+</body>
+
+<%- include('partials/footer.ejs'); -%>
+
+</html>
+
+<script>
+
+// // 클릭하면 세부설명 뜸
+// $(function() {
+// $('.bookimg').click(function () {
+// $('.context').show();
+// });
+// });
+
+// 책 이미지마다 id 출력
+function sendId(el) {
+
+    $("#modal").fadeIn();
+    $()
+
+    const id = el.dataset.id;
+    return id;
+}
+
+// 닫기 버튼 누르면 페이드 아웃
+$('.modal-close').on('click', function(e) {
+    e.preventDefault();
+    const modal = $(this).parents('.dialog');
+    modal.fadeOut();
+})
+
+
+$('#modal-background').on('click', function(e) {
+    e.preventDefault();
+    const modal = $(this).parents('.dialog');
+    modal.fadeOut();
+})
+
+// 사용자가 누른 책 context 출력
+document.querySelectorAll('.bookimg').forEach(img => {
+    img.addEventListener('click', async function() {
+        const id = sendId(this);
+        const action = this.dataset.action;
+
+        try {
+            const response = await fetch(`/${action}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: id })
+        });
+
+        const data = await response.json();
+
+        // 버튼의 value값 부여
+        document.getElementById('edit-id').value = data.id
+        document.getElementById('delete-id').value = data.id
+        document.getElementById('review-id').value = data.review
+
+        // 리뷰 내용 텍스트 부여
+        document.getElementById('book-title').textContent = data.title
+        document.getElementById('book-author').textContent = data.author
+        document.getElementById('book-pubdate').textContent = data.pubdate
+        document.getElementById('book-isbn').textContent = data.isbn
+        document.getElementById('book-publisher').textContent = data.publisher
+        document.getElementById('book-description').textContent = data.description
+        document.getElementById('book-review').textContent = "✏️ " + data.review
+
+        // 책 커버 이미지 소스 부여
+        document.getElementById('book-cover').src = data.cover
+
+    } catch (err) {
+            console.error("에러 발생", err);
+        }
+    });
+});
+
+
+</script>
+

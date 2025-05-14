@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book notes</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <div id="header">
+        <a href="/"><img src="/assets/icons/logo.png"  alt="logo" width="180px" id="logo"></a>
+        <hr>
+        <div id="top">
+            <h1 id="title">읽은 책을 기록하세요.</h1>
+            <div class="search">
+                <form action="/new" method="post">
+                    <input type="text" name="name">
+                    <button type="submit">
+                        <img src="/assets/icons/search1.png" id="search-img" alt="search-icon">
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<div class="new-body">
+    <div class="new-container">
+        <form action="/review" method="post">
+        
+        <% if (actionPath === "edit") { %>
+          <h3 class="new-h3">리뷰수정</h3>
+         <% } else if (actionPath === "add") { %>
+          <h3 class="new-h3">리뷰작성</h3>
+        <% } %>
+
+        <div class="new-book">
+            <div class="new-image">
+              <img src= <%= cover %>>
+              <input type="hidden" name="cover" value="<%= cover %>">
+            </div>
+
+            <div class="new-text">
+              <p id="new-title"><%= title %></p>
+              <input type="hidden" name="title" value="<%= title %>">
+              <p><%= author %></p>
+              <input type="hidden" name="author" value="<%= author %>">
+              <!-- <p><%= description %></p> -->
+              <input type="hidden" name="description" value="<%= description %>">
+              <span class="s"><%= publisher %></span>
+              <input type="hidden" name="publisher" value="<%= publisher %>">
+              <span class="s"><%= new Date(pubDate).toISOString().slice(0, 10) %></span>
+              <input type="hidden" name="pubDate" value="<%= pubDate %>">
+              <span class="s"><%= isbn %></span>
+              <input type="hidden" name="isbn" value="<%= isbn %>">
+            </div>
+        </div>
+
+        <div class="new-review">
+          <label class="new-text" for="review">리뷰 작성 *</label><br>
+          <textarea id="review" name="review" rows="5" cols="33"><%= review %></textarea>           
+        </div>
+
+        <div class="new-button">
+         <% if (actionPath === "edit") { %>
+          <button class="new-button2" type="submit" formaction="/modify">수정</button>
+         <% } else if (actionPath === "add") { %>
+          <button class="new-button2" type="submit">등록</button>
+        <% } %>
+        </div>
+        </form>
+    </div>
+</div>
+</body>
+
+<%- include('partials/footer.ejs'); -%>
+
+</html>
