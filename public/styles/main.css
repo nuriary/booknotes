@@ -425,7 +425,7 @@ input[type="text"] {
 .search-button {
     position: absolute;
     bottom: -40px;
-    left: 290px;
+    left: 320px;
     transform: scale(0.8);
 }
 
