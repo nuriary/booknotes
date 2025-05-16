@@ -326,9 +326,10 @@ button{
 @media (max-width: 575px) {
 
 #logo {
-    transform: scale(0.7);
+    transform: scale(0.8);
     margin: 0px;
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: -10px;
 }
 
 #book {
@@ -347,7 +348,7 @@ button{
 body {
     background-image: url(../assets/books2.png);
     background-repeat: repeat no-repeat;
-    background-size: 600px;
+    background-size: 550px;
 }
 
 #title {
@@ -438,6 +439,10 @@ input[type="text"] {
 
 .search-item {
     margin-bottom: 40px;
+}
+
+#search hr {
+    width: 400px;
 }
 
 
