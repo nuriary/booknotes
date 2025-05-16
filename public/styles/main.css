@@ -330,15 +330,64 @@ button{
     justify-items: center;
 }
 
+#title {
+    color: #3a3d24;
+    font-size: 170%;
+}
+
 input[type="text"] {
-    width: 80%;
+    width: 95%;
+    transform: scale(0.9);
+}
+
+#search-img{
+    transform: scale(0.9);
 }
 
 .search-text,
 .new-book,
 #review {
-    width: 90%;
+    width: 100%;
 }
+
+.search-image {
+    margin-left: 10px;
+    margin-right: 10px;
+    transform: scale(0.9);
+}
+
+.book-modal {
+    width: 90%;
+    padding: 20px;
+}
+
+#book-title {
+    font-size: 24px;
+    width: 280px;
+}
+
+#close-img {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}
+
+.edit {
+    position: absolute;
+    right: 70px;
+    bottom: 40px;
+}
+
+.delete {
+    position: absolute;
+    right: 20px;
+    bottom: 40px;
+}
+
+.new-container {
+    margin-top: 0px;
+}
+
 
 } 
  
