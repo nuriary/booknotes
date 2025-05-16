@@ -325,23 +325,49 @@ button{
 /* 세로모드 모바일 디바이스 (가로 해상도가 576px 보다 작은 화면에 적용) */
 @media (max-width: 575px) {
 
+#logo {
+    transform: scale(0.7);
+    margin: 0px;
+    margin-top: 10px;
+}
+
 #book {
     grid-template-columns: 1fr;
     justify-items: center;
 }
 
+#header {
+    margin-bottom: 0px;
+}
+
+#top {
+    margin-top: 30px;
+}
+
+body {
+    background-image: url(../assets/books2.png);
+    background-repeat: repeat no-repeat;
+    background-size: 600px;
+}
+
 #title {
     color: #3a3d24;
     font-size: 170%;
+    margin-bottom: 0px;
 }
 
 input[type="text"] {
-    width: 95%;
-    transform: scale(0.9);
+    width: 90%;
+    transform: scale(0.8);
+}
+
+.search{
+    padding-left: 10px;
 }
 
 #search-img{
     transform: scale(0.9);
+    right: 60px;
 }
 
 .search-text,
@@ -356,8 +382,15 @@ input[type="text"] {
     transform: scale(0.9);
 }
 
+#book {
+    margin-top: 50px;
+}
+
+
 .book-modal {
     width: 90%;
+    height: 460px;
+    overflow-y: auto;
     padding: 20px;
 }
 
@@ -375,17 +408,36 @@ input[type="text"] {
 .edit {
     position: absolute;
     right: 70px;
-    bottom: 40px;
+    bottom: -70px;
 }
 
 .delete {
     position: absolute;
     right: 20px;
-    bottom: 40px;
+    bottom: -70px;
 }
 
 .new-container {
     margin-top: 0px;
+}
+
+.search-button {
+    position: absolute;
+    bottom: -40px;
+    left: 290px;
+    transform: scale(0.8);
+}
+
+.search-image2 {
+    height: 150px;
+}
+
+.search-container {
+    width: 370px;
+}
+
+.search-item {
+    margin-bottom: 40px;
 }
 
 
